@@ -8,9 +8,12 @@
   Unity.NumberOfTests++; \
   if (TEST_PROTECT()) \
   { \
+      CMock_Init(); \
       setUp(); \
       TestFunc(); \
+      CMock_Verify(); \
   } \
+  CMock_Destroy(); \
   if (TEST_PROTECT() && !TEST_IS_IGNORED) \
   { \
     tearDown(); \
@@ -20,8 +23,11 @@
 
 //=======Automagically Detected Files To Include=====
 #include "unity.h"
+#include "cmock.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "mock_TS_Priorities.h"
+#include "mock_TS_Timing.h"
 
 int GlobalExpectCount;
 int GlobalVerifyOrder;
@@ -30,13 +36,37 @@ char* GlobalOrderError;
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_TS_AddTask_should(void);
+extern void test_TS_AddTask_should_not_return_a_null_pointer(void);
+extern void test_TS_AddTask_should_set_task_priority_correctly(void);
 
+
+//=======Mock Management=====
+static void CMock_Init(void)
+{
+  GlobalExpectCount = 0;
+  GlobalVerifyOrder = 0;
+  GlobalOrderError = NULL;
+  mock_TS_Priorities_Init();
+  mock_TS_Timing_Init();
+}
+static void CMock_Verify(void)
+{
+  mock_TS_Priorities_Verify();
+  mock_TS_Timing_Verify();
+}
+static void CMock_Destroy(void)
+{
+  mock_TS_Priorities_Destroy();
+  mock_TS_Timing_Destroy();
+}
 
 //=======Test Reset Option=====
 void resetTest()
 {
+  CMock_Verify();
+  CMock_Destroy();
   tearDown();
+  CMock_Init();
   setUp();
 }
 
@@ -46,7 +76,8 @@ int main(void)
 {
   Unity.TestFile = "test_TaskScheduler.c";
   UnityBegin();
-  RUN_TEST(test_TS_AddTask_should, 32);
+  RUN_TEST(test_TS_AddTask_should_not_return_a_null_pointer, 44);
+  RUN_TEST(test_TS_AddTask_should_set_task_priority_correctly, 51);
 
   return (UnityEnd());
 }

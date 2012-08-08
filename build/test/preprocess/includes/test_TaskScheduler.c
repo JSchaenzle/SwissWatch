@@ -1,4 +1,6 @@
 ---
 - TS_Types.h
 - TaskScheduler.h
+- mock_TS_Priorities.h
+- mock_TS_Timing.h
 - unity.h
