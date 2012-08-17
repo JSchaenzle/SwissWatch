@@ -67,7 +67,20 @@ void TS_Process_Tasks(TS_Time_T current_time)
     TS_Task_T * pending_tasks[MAX_NUM_TASKS];
 
     // Check for tasks ready to be initialized
-    ahhhah
+    if(!all_tasks_initialized)
+    {
+        TS_Task_T * task_to_init = TS_GetNextTaskToInit(task_pool);
+        if(task_to_init != NULL)
+        {
+            // Call the tasks init function
+            task_to_init->init_func();
+            task_to_init->initialized = true;
+            // Check if all tasks are initialized
+            if(TS_GetNumTasksAwatingInit(task_pool) == 0) 
+                all_tasks_initialized = true;
+        }
+    }
+
 
     {
         // Check for expired tasks

@@ -2,7 +2,6 @@
 
  - A priority based task scheduler for C.
 
-
 **Setting Up Tasks**
 
 At the start of the program each task must be initialized with a period, a priority and a callback function pointer.
@@ -33,6 +32,6 @@ At the start of the program each task must be initialized with a period, a prior
 
     By default, nothing happens when all tasks are idle. The task scheduler supports an Idle Callback which will be called during this time. This can be used to monitor the amount of time that the processor is idle. To do so use the TS_SetIdleFunc method. This function takes a function pointer to the function that you want to be called during idle time. The idle function cannot take any arguments.
 
-
+    IMPORTANT: If this is running on a system with an OS where there are other processes running you need to implement a sleep function in idle function. Otherwise you will peg the processor at 100% for your process.  <-- Baaaaad
 
 

@@ -19,7 +19,7 @@ enum e_TS_Task_Results
 {
     INCOMPLETE = -1,
     FINISHED = 0,
-    KILL_TASK = 1
+    CRASH_N_BURN = 1
 };
 
 struct s_TS_Task

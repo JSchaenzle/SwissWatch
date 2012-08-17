@@ -7,6 +7,7 @@
 uint16_t t1_calls;
 uint16_t t2_calls;
 uint16_t t3_calls;
+uint16_t idle_calls;
 
 uint16_t t1_init_calls;
 uint16_t t2_init_calls;
@@ -27,19 +28,20 @@ void setUp()
     t1_init_calls = 0;
     t2_init_calls = 0;
     t3_init_calls = 0;
+    idle_calls = 0;
 }
 
 void tearDown()
 {
 }
 
-TS_Task_Results callback_t1(void){t1_calls++; return t1_rv;}
-TS_Task_Results callback_t2(void){t2_calls++; return t2_rv;}
-TS_Task_Results callback_t3(void){t3_calls++; return t3_rv;}
-
-void init_func_t1(void){t1_init_calls++;}
-void init_func_t2(void){t2_init_calls++;}
-void init_func_t3(void){t3_init_calls++;}
+TS_Task_Results callback_t1(void){ t1_calls++; return t1_rv; }
+TS_Task_Results callback_t2(void){ t2_calls++; return t2_rv; }
+TS_Task_Results callback_t3(void){ t3_calls++; return t3_rv; }
+void init_func_t1(void){ t1_init_calls++; }
+void init_func_t2(void){ t2_init_calls++; }
+void init_func_t3(void){ t3_init_calls++; }
+void idle_func(){ idle_calls++; }
 
 void test_TS_AddTask_should_not_return_a_null_pointer()
 {
@@ -54,10 +56,27 @@ void test_TS_AddTask_should_set_task_priority_correctly()
     TEST_ASSERT_EQUAL(3, rv->priority);
 }
 
-// Trying to figure out how i want this thing to work...
-// void foobar()
-// {
-//     TS_Task_T * p_t1 = TS_AddTask(1000, &t1CallbackFunc, );
-//     TS_Task_T * p_t2 = TS_AddTask(500, &t2CallbackFunc);
-// }
+/*
+Trying to figure out how i want this thing to work...
+void foobar()
+{
+    TS_Task_T * p_t1 = TS_AddTask(1000, &t1CallbackFunc, );
+    TS_Setup
+    TS_Task_T * p_t2 = TS_AddTask(500, &t2CallbackFunc);
+
+    // Declare Tasks
+    // Set Init Functions
+    // Set 
+    
+    Time_T current_time;
+    TS_Result_T result = SUCCESS;
+
+    while(CRASH_N_BURN != result)
+    {
+        current_time = GetCurrentTime();
+        result = TS_ProcessTasks(currentTime);
+    }
+
+}
+*/
 
