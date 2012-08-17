@@ -2,8 +2,7 @@ require File.expand_path("../lib/newgem/version", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "swisswatch"
-  s.version     = NewGem::VERSION
-  s.platform    = Gem::Platform::RUBY
+  s.version     = "1.0.0"
   s.authors     = ["Jordan Schaenzle"]
   s.email       = ["jschaenzle@gmail.com"]
   s.homepage    = "http://github.com/JSchaenzle/SwissWatch"
