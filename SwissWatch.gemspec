@@ -20,8 +20,8 @@ Gem::Specification.new do |s|
 
   # If you need to check in files that aren't .rb files, add them here
   #s.files        = Dir["{lib}/**/*.rb", "bin/*", "LICENSE", "*.md"]
-  s.files        = Dir["src/**"]
-  #s.require_path = 'lib'
+  s.files        = Dir["*"]
+  s.require_path = '.'
 
   # If you need an executable, add it here
   # s.executables = ["newgem"]

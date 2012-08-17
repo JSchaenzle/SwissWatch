@@ -1,0 +1,22 @@
+
+
+Audible range 20 Hz to 20,000 Hz
+
+Estimated Max Frequency 2,000 Hz
+
+f = 2000
+p = 1/2000 = .0005 seconds
+p = .5 milliseconds
+
+Rising edges per millisecond = 2
+
+__________________________________________
+
+MCU clock
+
+f = 8 MHz
+
+__________________________________________
+
+Number of clock cycles per rising edge from piezo sensor
+ 8,000,000 / 2,000 = 4000
